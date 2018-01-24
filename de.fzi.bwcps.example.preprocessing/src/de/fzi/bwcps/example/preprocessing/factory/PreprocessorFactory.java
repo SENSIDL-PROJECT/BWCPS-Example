@@ -9,7 +9,8 @@ import de.fzi.bwcps.example.preprocessing.gateway.GatewayPreprocessor;
 import de.fzi.bwcps.example.preprocessing.sensor.SensorPreprocessor;
 
 public class PreprocessorFactory {
-	
+
+	// Temporary solution.
 	private static Map<PreprocessorID, Preprocessable<?,?>> registeredPreprocessors;
 	static {
 		
