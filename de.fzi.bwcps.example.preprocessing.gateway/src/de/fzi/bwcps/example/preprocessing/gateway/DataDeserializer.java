@@ -3,11 +3,11 @@ package de.fzi.bwcps.example.preprocessing.gateway;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Utility;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.SingleInputSingleOutputFilter;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Data;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Utility;
 
 public class DataDeserializer extends SingleInputSingleOutputFilter<String,MeasuredData<GalileoGen2Data>> {
 

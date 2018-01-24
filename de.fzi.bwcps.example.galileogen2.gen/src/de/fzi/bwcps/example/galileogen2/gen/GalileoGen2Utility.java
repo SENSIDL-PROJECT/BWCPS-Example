@@ -5,7 +5,7 @@
 *Further generated artifacts:	GalileoGen2Data.java
 */
 
-package de.fzi.sensidl.GalileoGen2;
+package de.fzi.bwcps.example.galileogen2.gen;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

@@ -5,7 +5,7 @@
 *Further generated artifacts:	GalileoGen2Utility.java
 */
 
-package de.fzi.sensidl.GalileoGen2;
+package de.fzi.bwcps.example.galileogen2.gen;
  
  
 /**

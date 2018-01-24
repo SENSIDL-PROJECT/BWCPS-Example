@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.factory.Preprocessable;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Data;
 
 public class SensorPreprocessor extends Preprocessable<Map<String,Object>,String> {
 	

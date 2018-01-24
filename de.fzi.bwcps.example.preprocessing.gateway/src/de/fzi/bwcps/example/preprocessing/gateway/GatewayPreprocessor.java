@@ -2,10 +2,10 @@ package de.fzi.bwcps.example.preprocessing.gateway;
 
 import java.util.Arrays;
 
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.factory.Preprocessable;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Data;
 
 public class GatewayPreprocessor extends Preprocessable<String,MeasuredData<GalileoGen2Data>> {
 

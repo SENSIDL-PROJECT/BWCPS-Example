@@ -1,10 +1,10 @@
 package de.fzi.bwcps.example.preprocessing.sensor;
 
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Utility;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.SingleInputSingleOutputFilter;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Data;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Utility;
 
 public class DataSerializer extends SingleInputSingleOutputFilter<MeasuredData<GalileoGen2Data>, String> {
 

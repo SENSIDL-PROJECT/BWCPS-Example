@@ -3,10 +3,10 @@ package de.fzi.bwcps.example.preprocessing.sensor;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.MultipleInputSingleOutputFilter;
-import de.fzi.sensidl.GalileoGen2.GalileoGen2Data;
 
 public class RawToGalileoGen2DataConverter extends MultipleInputSingleOutputFilter<MeasuredData<Object>,MeasuredData<GalileoGen2Data>> {
 
