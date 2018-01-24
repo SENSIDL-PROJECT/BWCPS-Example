@@ -1,0 +1,28 @@
+/*
+*File:							GalileoGen2.txt
+*Version:						
+*Generate at:					22/01/2018 18:07:39
+*Further generated artifacts:	
+*/
+
+----------------------------------------
+name: GalileoGen2
+time: Mon Jan 22 18:07:39 CET 2018
+----------------------------------------
+This is the documentation for the sensor interface "GalileoGen2" (ID: _wC2-EP-WEeedDN9Dwebf6Q).
+The encoding (ID: _wC2-Ef-WEeedDN9Dwebf6Q) is sensidl json and the endianness is big endian. It is aligned by 1 bit.
+The sensor data (ID: _wC2-Ev-WEeedDN9Dwebf6Q) of "GalileoGen2" consists of 1 data set: GalileoGen2Data.
+
+====================================================================================================
+
+The data set "GalileoGen2Data" (ID: _wC2-E_-WEeedDN9Dwebf6Q) contains 2 datas: Temperature and Light.
+It provides no additional method.
+
+The measurement data "Temperature" (ID: _wC3lIP-WEeedDN9Dwebf6Q) has the data type INT16.
+It has the unit °.
+
+The measurement data "Light" (ID: _wC3lIf-WEeedDN9Dwebf6Q) has the data type DOUBLE.
+It has the unit cd.
+
+----------------------------------------------------------------------------------------------------
+

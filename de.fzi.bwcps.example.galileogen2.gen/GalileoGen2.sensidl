@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_wC2-EP-WEeedDN9Dwebf6Q" name="GalileoGen2">
+  <encodingSettings ID="_wC2-Ef-WEeedDN9Dwebf6Q" coding="SENSIDL_JSON"/>
+  <dataDescription ID="_wC2-Ev-WEeedDN9Dwebf6Q">
+    <dataSets ID="_wC2-E_-WEeedDN9Dwebf6Q" name="GalileoGen2Data">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_wC3lIP-WEeedDN9Dwebf6Q" name="Temperature" dataType="INT16" unit="rad"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_wC3lIf-WEeedDN9Dwebf6Q" name="Light" dataType="DOUBLE" unit="cd"/>
+    </dataSets>
+  </dataDescription>
+</de.fzi.sensidl.design:SensorInterface>

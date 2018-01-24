@@ -1,0 +1,12 @@
+sensorInterface GalileoGen2 {
+	encoding : SENSIDL_JSON, 
+	endianness : BIG_ENDIAN , 
+	alignment : 1 BIT
+	
+	sensorData {
+		dataSet GalileoGen2Data {
+			Temperature as INT16 in °
+			Light as DOUBLE in cd
+		}
+	} 
+}

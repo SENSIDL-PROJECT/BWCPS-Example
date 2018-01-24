@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Data
+Bundle-SymbolicName: de.fzi.bwcps.example.galileogen2.sensor
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.fzi.bwcps.example.sensor.data.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: de.fzi.bwcps.example.dataprocess,
+ de.fzi.bwcps.example.preprocessing,
+ de.fzi.bwcps.example.preprocessing.factory,
+ org.osgi.framework;version="1.3.0"
+Export-Package: de.fzi.bwcps.example.sensor.data
