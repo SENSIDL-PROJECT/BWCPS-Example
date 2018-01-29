@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sensor
+Bundle-SymbolicName: de.fzi.bwcps.example.sensor
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: de.fzi.bwcps.example.sensor.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: de.fzi.bwcps.example.preprocessing,
+ de.fzi.bwcps.example.preprocessing.factory,
+ org.osgi.framework;version="1.3.0"
+Export-Package: de.fzi.bwcps.example.sensor
