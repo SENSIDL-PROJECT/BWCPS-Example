@@ -6,67 +6,82 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import de.fzi.bwcps.example.com.pubsub.Publisher;
+import de.fzi.bwcps.example.dataprocessing.util.DataProcessorManager;
 import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
+import de.fzi.bwcps.example.preprocessing.DataProcessor;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
-import de.fzi.bwcps.example.preprocessing.factory.Preprocessable;
 
-public class SensorPreprocessor extends Preprocessable<Map<String,Object>,String> {
+public class SensorPreprocessor implements DataProcessor<Map<String,Object>> {
 	
-	private final RawToGalileoGen2DataConverter converter;
-	private final DataSerializer serializer;
-	private final DataPipe<String> outputPipe;
-	private final DataPipe<MeasuredData<Object>> inputDataToConverter;
+	private final Publisher publisher;
+	private final DataProcessorManager<MeasuredData<Object>, String> procManager;
 	
-	public SensorPreprocessor() {
+	public SensorPreprocessor(Publisher publisher) {
 		
+		this.procManager = initDataProcessorManager();
+		this.publisher = initPublisher(publisher);
+		
+	}
+
+	private DataProcessorManager<MeasuredData<Object>, String> initDataProcessorManager() {
+		
+		DataPipe<MeasuredData<Object>> inputDataToConverter = new DataPipe<MeasuredData<Object>>();
 		DataPipe<MeasuredData<GalileoGen2Data>> converterToSerializer = new DataPipe<MeasuredData<GalileoGen2Data>>();
+		DataPipe<String> outputPipe = new DataPipe<String>();
 		
-		inputDataToConverter = new DataPipe<MeasuredData<Object>>();
-		outputPipe = new DataPipe<String>();
+		RawToGalileoGen2DataConverter converter = new RawToGalileoGen2DataConverter(inputDataToConverter, converterToSerializer);
+		DataSerializer serializer = new DataSerializer(converterToSerializer, outputPipe);
 		
-		converter = new RawToGalileoGen2DataConverter(inputDataToConverter, converterToSerializer);
-		serializer = new DataSerializer(converterToSerializer, outputPipe);
+		return new DataProcessorManager<MeasuredData<Object>, String>(inputDataToConverter, 
+																	  outputPipe, 
+																	  Arrays.asList(converter,serializer));
+		
+	}
+
+	private Publisher initPublisher(Publisher newPublisher) {
+		
+		return newPublisher.isConnected() ? newPublisher : startToConnect(newPublisher);
+		
+	}
+	
+	private Publisher startToConnect(Publisher newPublisher) {
+		
+		try {
+			
+			newPublisher.connect();
+			return newPublisher;
+		
+		} catch (Exception e) {
+			
+			throw new RuntimeException(e);
+			
+		}
 		
 	}
 
 	@Override
-	public String process(Map<String, Object> data) {
+	public void process(Map<String, Object> measurements) {
 		
-		clearInputPipe();
-		addToInputPipe(data);
-		applyPreprocessors();
-		return getResult();
+		procManager.resetWithNew(transform(measurements.entrySet().stream()));
+		procManager.applyAllFilter();
+		procManager.getFirstResult().ifPresent(result -> publish(result));
+		
 				
 	}
 
-	private void clearInputPipe() {
+	private void publish(String result) {
 		
-		inputDataToConverter.clear();
-		
-	}
-
-	private void addToInputPipe(Map<String, Object> data) {
-		
-		transform(data.entrySet().stream()).forEach(measurement -> inputDataToConverter.add(measurement));
-		
-	}
-
-	private void applyPreprocessors() {
-		
-		Arrays.asList(converter, serializer).forEach(preprocessor -> preprocessor.apply());
-		
-	}
-
-	public String getResult() {
-		
-		if (outputPipe.getData().isEmpty()) {
+		try {
 			
-			throw new RuntimeException("There is no output");
+			publisher.publish(result);
+			
+		} catch (Exception e) {
+			
+			throw new RuntimeException(e);
 			
 		}
-		
-		return outputPipe.getData().get(0);
 		
 	}
 
@@ -77,6 +92,5 @@ public class SensorPreprocessor extends Preprocessable<Map<String,Object>,String
 											   
 		
 	}
-
 	
 }

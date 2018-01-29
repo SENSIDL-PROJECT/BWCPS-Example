@@ -64,7 +64,21 @@ public class MQTTClient implements Publisher, Subscriber, MqttCallback {
 		client.disconnect();
 		
 	}
+	
+	@Override
+	public boolean isConnected() {
+		
+		return client.isConnected();
+		
+	}
 
+	@Override
+	public void subscribe() throws Exception {
+		
+		subscribe(config.topic);
+		
+	}
+	
 	@Override
 	public void subscribe(String topic) throws Exception {
 		

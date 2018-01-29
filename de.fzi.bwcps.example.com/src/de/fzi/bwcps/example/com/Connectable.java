@@ -6,4 +6,6 @@ public interface Connectable {
 	
 	public abstract void disconnect() throws Exception;
 	
+	public abstract boolean isConnected();
+	
 }

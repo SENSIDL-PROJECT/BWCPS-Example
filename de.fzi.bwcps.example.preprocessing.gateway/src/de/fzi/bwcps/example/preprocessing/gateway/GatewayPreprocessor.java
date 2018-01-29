@@ -2,63 +2,65 @@ package de.fzi.bwcps.example.preprocessing.gateway;
 
 import java.util.Arrays;
 
+import de.fzi.bwcps.example.com.pubsub.Subscriber;
+import de.fzi.bwcps.example.dataprocessing.util.DataProcessorManager;
 import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
-import de.fzi.bwcps.example.preprocessing.MeasuredData;
-import de.fzi.bwcps.example.preprocessing.factory.Preprocessable;
+import de.fzi.bwcps.example.preprocessing.DataProcessor;
 
-public class GatewayPreprocessor extends Preprocessable<String,MeasuredData<GalileoGen2Data>> {
+public class GatewayPreprocessor implements DataProcessor<String> {
 
-	private final DataDeserializer deserializer;
-	private final DataPipe<MeasuredData<GalileoGen2Data>> outputPipe;
-	private final DataPipe<String> inputDataToDeserialized;
+	private final DataProcessorManager<String, GalileoGen2Data> procManager;
+	private final Subscriber subscriber;
 	
-	public GatewayPreprocessor() {
+	public GatewayPreprocessor(Subscriber subscriber) {
 		
-		this.inputDataToDeserialized = new DataPipe<String>();
-		this.outputPipe = new DataPipe<MeasuredData<GalileoGen2Data>>();
+		this.procManager = initDataProcessorManager();
+		this.subscriber = initSubscriber(subscriber);
 		
-		this.deserializer = new DataDeserializer(inputDataToDeserialized, outputPipe);
+	}
+
+	private DataProcessorManager<String, GalileoGen2Data> initDataProcessorManager() {
+		
+		DataPipe<String> inputDataToDeserialized = new DataPipe<String>();
+		DataPipe<GalileoGen2Data> outputPipe = new DataPipe<GalileoGen2Data>();
+		
+		DataDeserializer deserializer = new DataDeserializer(inputDataToDeserialized, outputPipe);
+		
+		return new DataProcessorManager<String, GalileoGen2Data>(inputDataToDeserialized, 
+																 outputPipe, 
+																 Arrays.asList(deserializer));	
+		
+	}
+
+	private Subscriber initSubscriber(Subscriber newSubscriber) {
+		
+		try {
+			
+			if (newSubscriber.isConnected() == false) {
+				
+				newSubscriber.connect();
+				
+			}
+			
+			newSubscriber.setArrivedMessageHandler(message -> process(message));
+			newSubscriber.subscribe();
+			
+			return newSubscriber;
+		
+		} catch(Exception e) {
+			
+			throw new RuntimeException(e);
+			
+		}
 		
 	}
 
 	@Override
-	public MeasuredData<GalileoGen2Data> process(String data) {
+	public void process(String measurement) {
 		
-		clearInputPipe();
-		addToInputPipe(data);
-		applyPreprocessors();
-		return getResult();
-		
-	}
-	
-	private void clearInputPipe() {
-		
-		inputDataToDeserialized.clear();
-		
-	}
-	
-	private void addToInputPipe(String data) {
-		
-		inputDataToDeserialized.add(data);
-		
-	}
-
-	private void applyPreprocessors() {
-		
-		Arrays.asList(deserializer).forEach(preprocessor -> preprocessor.apply());
-		
-	}
-
-	public MeasuredData<GalileoGen2Data> getResult() {
-		
-		if (outputPipe.getData().isEmpty()) {
-			
-			throw new RuntimeException("There is no output");
-			
-		}
-		
-		return outputPipe.getData().get(0);
+		procManager.resetWithNew(Arrays.asList(measurement));
+		procManager.applyAllFilter();
 		
 	}
 

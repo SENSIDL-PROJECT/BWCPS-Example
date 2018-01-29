@@ -1,12 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Sensor
-Bundle-SymbolicName: de.fzi.bwcps.example.preprocessing.sensor
+Bundle-SymbolicName: de.fzi.bwcps.example.dataprocessing.sensor
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: de.fzi.bwcps.example.preprocessing.sensor.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: de.fzi.bwcps.example.com.sensor,
- de.fzi.bwcps.example.dataprocess,
+Import-Package: de.fzi.bwcps.example.com,
+ de.fzi.bwcps.example.com.pubsub,
+ de.fzi.bwcps.example.com.pubsub.factory,
+ de.fzi.bwcps.example.dataprocessing.util,
  de.fzi.bwcps.example.galileogen2.gen,
  de.fzi.bwcps.example.preprocessing,
  de.fzi.bwcps.example.preprocessing.factory,
