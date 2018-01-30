@@ -6,18 +6,19 @@ import java.util.Optional;
 
 import de.fzi.bwcps.example.com.ConnectionConfig;
 import de.fzi.bwcps.example.com.pubsub.Subscriber;
+import de.fzi.bwcps.example.com.pubsub.mqtt.MQTTClient;
 
 public class SubscriberFactory {
 
-	private final static Map<SubscriberId,Class<Subscriber>> subscribers;
+	private final static Map<SubscriberId,Class<? extends Subscriber>> subscribers;
 	static {
 		
-		subscribers = new HashMap<SubscriberId, Class<Subscriber>>();
-		subscribers.put(SubscriberId.MQTT, Subscriber.class);
+		subscribers = new HashMap<SubscriberId, Class<? extends Subscriber>>();
+		subscribers.put(SubscriberId.MQTT, MQTTClient.class);
 		
 	}
 	
-	public static void register(SubscriberId id, Class<Subscriber> pubClass) {
+	public static void register(SubscriberId id, Class<? extends Subscriber> pubClass) {
 		
 		subscribers.put(id, pubClass);
 		

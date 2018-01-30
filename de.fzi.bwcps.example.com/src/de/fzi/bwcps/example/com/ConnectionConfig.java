@@ -10,7 +10,7 @@ public class ConnectionConfig {
 	public static ConnectionConfig defaultConfig() {
 		
 		ConnectionConfig config = new ConnectionConfig();
-		config.topic = "GalileoGen2";
+		config.topic = "GalileoGen2/";
 		config.qos = 2;
 		config.broker = "tcp://iot.eclipse.org:1883";
 		config.clientId = "MQTT Client";

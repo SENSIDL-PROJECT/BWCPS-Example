@@ -14,8 +14,33 @@ import de.fzi.bwcps.example.com.ConnectionConfig;
 import de.fzi.bwcps.example.com.pubsub.Publisher;
 import de.fzi.bwcps.example.com.pubsub.Subscriber;
 
-public class MQTTClient implements Publisher, Subscriber, MqttCallback {
+public class MQTTClient implements Publisher, Subscriber {
 
+	private class MqttMessageCallback implements MqttCallback {
+
+		@Override
+		public void connectionLost(Throwable arg0) {
+
+			
+		}
+
+		@Override
+		public void deliveryComplete(IMqttDeliveryToken arg0) {
+			
+			
+		}
+
+		@Override
+		public void messageArrived(String topic, MqttMessage message) throws Exception {
+			
+			if (arrivedMessageHandler != null)
+				arrivedMessageHandler.accept(new String(message.getPayload()));
+			
+		}
+		
+		
+	}
+	
 	private final ConnectionConfig config;
 	private final MqttClient client;
 	
@@ -23,8 +48,7 @@ public class MQTTClient implements Publisher, Subscriber, MqttCallback {
 	
 	public MQTTClient() {
 		
-		this.config = ConnectionConfig.defaultConfig();
-		this.client = create();
+		this(ConnectionConfig.defaultConfig());
 		
 	}
 	
@@ -39,13 +63,22 @@ public class MQTTClient implements Publisher, Subscriber, MqttCallback {
 		
 		try {
 			
-			return new MqttClient(config.broker, config.clientId, new MemoryPersistence());
+			MqttClient client = new MqttClient(config.broker, createUniqueClientId(), new MemoryPersistence());
+			client.setCallback(new MqttMessageCallback());
+			return client;
 			
 		} catch (MqttException e) {
 			
 			throw new RuntimeException(e);
 			
 		}
+		
+	}
+
+	private String createUniqueClientId() {
+		
+		return config.clientId.concat(new Long(System.currentTimeMillis()).toString());
+		
 		
 	}
 
@@ -99,27 +132,6 @@ public class MQTTClient implements Publisher, Subscriber, MqttCallback {
 		MqttMessage mqttMessage = new MqttMessage(message.getBytes());
 		mqttMessage.setQos(config.qos);
 		return mqttMessage;
-		
-	}
-
-	@Override
-	public void connectionLost(Throwable arg0) {
-		
-		throw new RuntimeException("Connection lost.");
-		
-	}
-
-	@Override
-	public void deliveryComplete(IMqttDeliveryToken arg0) {
-		
-		
-		
-	}
-
-	@Override
-	public void messageArrived(String topic, MqttMessage message) throws Exception {
-		
-		arrivedMessageHandler.accept(new String(message.getPayload()));
 		
 	}
 

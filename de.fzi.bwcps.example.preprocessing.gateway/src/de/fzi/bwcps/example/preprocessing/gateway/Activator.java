@@ -8,12 +8,11 @@ import org.osgi.framework.BundleContext;
 import de.fzi.bwcps.example.com.pubsub.Subscriber;
 import de.fzi.bwcps.example.com.pubsub.factory.SubscriberFactory;
 import de.fzi.bwcps.example.com.pubsub.factory.SubscriberId;
-import de.fzi.bwcps.example.preprocessing.factory.DataProcessorId;
-import de.fzi.bwcps.example.preprocessing.factory.GatwayProcessorFactory;
 import de.fzi.bwcps.example.presentation.factory.DataPresenterFactory;
 
 public class Activator implements BundleActivator {
 
+	private GatewayPreprocessor gatPre;
 	private Subscriber subscriber;
 	private static BundleContext context;
 
@@ -30,8 +29,8 @@ public class Activator implements BundleActivator {
 		Activator.context = bundleContext;
 		
 		subscriber = getSubscriber();
-		GatewayPreprocessor gatPre = new GatewayPreprocessor(subscriber, DataPresenterFactory.getDefaultDataREpresentation());
-		GatwayProcessorFactory.register(DataProcessorId.GATEWAY, gatPre);
+		gatPre = new GatewayPreprocessor(subscriber, DataPresenterFactory.getDefaultDataRepresentation());
+		//GatwayProcessorFactory.register(DataProcessorId.GATEWAY, gatPre);
 		
 	}
 

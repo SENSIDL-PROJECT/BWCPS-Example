@@ -19,7 +19,7 @@ public class RandomDataGenerator implements DataFetcher {
 	@Override
 	public DataEntry getTemperature() {
 		
-		Integer temp = new Integer(random.nextInt(BOUND)); 
+		Short temp = new Short((short) random.nextInt(BOUND)); 
 		return DataEntry.of(TEMPERATURE_ID, temp);
 		
 	}

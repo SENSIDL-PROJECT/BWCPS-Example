@@ -5,7 +5,7 @@ import de.fzi.bwcps.example.presentation.DefaultDataPresenter;
 
 public class DataPresenterFactory {
 
-	public static DataPresenter getDefaultDataREpresentation() {
+	public static DataPresenter getDefaultDataRepresentation() {
 		
 		return new DefaultDataPresenter();
 		
