@@ -10,6 +10,7 @@ import de.fzi.bwcps.example.com.pubsub.factory.SubscriberFactory;
 import de.fzi.bwcps.example.com.pubsub.factory.SubscriberId;
 import de.fzi.bwcps.example.preprocessing.factory.DataProcessorId;
 import de.fzi.bwcps.example.preprocessing.factory.GatwayProcessorFactory;
+import de.fzi.bwcps.example.presentation.factory.DataPresenterFactory;
 
 public class Activator implements BundleActivator {
 
@@ -29,7 +30,7 @@ public class Activator implements BundleActivator {
 		Activator.context = bundleContext;
 		
 		subscriber = getSubscriber();
-		GatewayPreprocessor gatPre = new GatewayPreprocessor(subscriber);
+		GatewayPreprocessor gatPre = new GatewayPreprocessor(subscriber, DataPresenterFactory.getDefaultDataREpresentation());
 		GatwayProcessorFactory.register(DataProcessorId.GATEWAY, gatPre);
 		
 	}
