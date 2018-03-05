@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="en_us">
+    <OCD id="org.subscribe.service.Subscriber"
+         name="Subscriber" 
+         description="This a general program to subscribe to a service ">
+        
+        <AD id="App_id.ID"  
+            name="App_id.ID"
+            type="String"
+            cardinality="0" 
+            required="true"
+            default="heater" 
+            description="The Application that you want to subscribe to -shall be unique-."/>
+
+      
+        
+
+        <AD id="subscribe.semanticTopic"  
+            name="subscribe.semanticTopic"
+            type="String"
+            cardinality="0" 
+            required="true"
+            default="data" 
+            description="Default semantic topic to subscribe ."/>
+        
+        <AD id="subscribe.qos"  
+            name="subscribe.qos"
+            type="Integer"
+            cardinality="0" 
+            required="true"
+            default="0" 
+            description="Default QoS to subscribe the messages with.">
+           <Option label="Fire and forget" value="0"/>
+           <Option label="Al least once" value="1"/>          
+           <Option label="At most once" value="2"/>
+        </AD>
+
+        
+    </OCD>
+    
+    <Designate pid="org.subscribe.service.Subscriber">
+        <Object ocdref="org.subscribe.service.Subscriber"/>
+    </Designate>
+</MetaData>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" 
+	activate="activate" 
+	configuration-policy="require" 
+	deactivate="deactivate" 
+	enabled="true" 
+	immediate="true" 
+	modified="updated" 
+	name="org.subscribe.service.Subscriber">		
+    <implementation class="org.subscribe.service.Subscriber"/>
+   
+   <property name="service.pid" type="String" value="org.subscribe.service.Subscriber"/>
+   <service>
+      <provide interface="org.subscribe.service.Subscriber"/>
+   </service>
+   
+   <reference name="CloudService"
+              policy="static"
+              bind="setCloudService"       
+              unbind="unsetCloudService"       
+              cardinality="1..1" 
+              interface="org.eclipse.kura.cloud.CloudService"
+              target="(kura.service.pid=org.eclipse.kura.cloud.CloudService)"/>
+</scr:component>
