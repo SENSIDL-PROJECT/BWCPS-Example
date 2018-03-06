@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="en_us">
-    <OCD id="org.subscribe.service.Subscriber"
+    <OCD id="de.fzi.bwcps.example.subscriber.Subscriber"
          name="Subscriber" 
          description="This a general program to subscribe to a service ">
         
@@ -39,7 +39,7 @@
         
     </OCD>
     
-    <Designate pid="org.subscribe.service.Subscriber">
-        <Object ocdref="org.subscribe.service.Subscriber"/>
+    <Designate pid="de.fzi.bwcps.example.subscriber.Subscriber">
+        <Object ocdref="de.fzi.bwcps.example.subscriber.Subscriber"/>
     </Designate>
 </MetaData>

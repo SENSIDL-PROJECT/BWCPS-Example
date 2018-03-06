@@ -1,4 +1,4 @@
-package org.subscribe.service;
+package de.fzi.bwcps.example.subscriber;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -159,7 +159,7 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener {
 		try {
 			if (this.m_cloudClient.isConnected() && !this.m_subscriptions.containsKey(topic)) {
 				this.m_cloudClient.subscribe(topic, qos);
-				System.out.println("Subscribed to topic: " + topic + " with QOS: " + qos);
+				s_logger.info("Subscribed to topic: {} with QOS: {}", topic, qos);
 				this.m_subscriptions.put(topic, qos);
 			}
 		} catch (KuraException ex) {
