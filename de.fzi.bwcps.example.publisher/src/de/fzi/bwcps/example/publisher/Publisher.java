@@ -3,10 +3,6 @@ package de.fzi.bwcps.example.publisher;
 import java.util.Date;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.eclipse.kura.KuraException;
 import org.eclipse.kura.cloud.CloudClient;
@@ -35,16 +31,12 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
 	private CloudService m_cloudService;
 	private CloudClient m_cloudClient;
 
-	private final ScheduledExecutorService m_worker;
-	private ScheduledFuture<?> m_handle;
-
 	private Map<String, Object> m_properties;
 	
-	private boolean isConnected = false;
+	//private boolean isConnected = false;
 	
 	public Publisher() {
 		super();
-		this.m_worker = Executors.newSingleThreadScheduledExecutor();
 	}
 
 	public void setCloudService(CloudService cloudService) {
@@ -63,39 +55,16 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
 			s_logger.info("Activate - " + s + ": " + this.m_properties.get(s));
 		}
 
-		try {
+		/*try {
 			getMqttClient();
 		} catch (KuraException e) {
 			s_logger.error("Error during component activation", e);
 			throw new ComponentException(e);
-		}
+		}*/
 
 		s_logger.info("Activating the service subscription... Done.");
-		isConnected = true;
+		//isConnected = true;
 	}
-	private void getMqttClient() throws KuraException {
-		s_logger.info("Getting CloudClient for {}...", APP_ID);
-		this.m_cloudClient = this.m_cloudService.newCloudClient(APP_ID);
-		this.m_cloudClient.addCloudClientListener(this);
-
-		doUpdate(false);
-	}
-
-	private void doUpdate(boolean onUpdate) {
-		// cancel a current worker handle if one if active
-		if (this.m_handle != null) {
-			this.m_handle.cancel(true);
-		}
-
-		this.m_handle = this.m_worker.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				Thread.currentThread().setName(getClass().getSimpleName());
-				//doSubscribe();
-			}
-		}, 0, 2, TimeUnit.SECONDS);
-	}
-
 	protected void deactivate(ComponentContext componentContext) throws KuraException {
 		s_logger.debug("Deactivating Heater...");
 
@@ -116,7 +85,6 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
 			s_logger.info("Update - " + s + ": " + this.m_properties.get(s));
 		}
 
-		doUpdate(true);
 		s_logger.info("Updated Subscriber... Done.");
 	}
 	
@@ -161,8 +129,12 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
 	//Publisher
 	@Override
 	public void connect() throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			getMqttClient();
+		} catch (KuraException e) {
+			s_logger.error("Error during component activation", e);
+			throw new ComponentException(e);
+		}		
 	}
 
 	@Override
@@ -173,8 +145,10 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
 
 	@Override
 	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		return isConnected;
+		if (this.m_cloudClient == null) {
+			return false;
+		}
+		return this.m_cloudClient.isConnected();
 	}
 
 	@Override
@@ -183,7 +157,6 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
         String topic = (String) this.m_properties.get(PUBLISH_TOPIC_PROP_NAME);
         Integer qos = (Integer) this.m_properties.get(PUBLISH_QOS_PROP_NAME);
         Boolean retain = (Boolean) this.m_properties.get(PUBLISH_RETAIN_PROP_NAME);
-        //String mode = (String) this.m_properties.get(MODE_PROP_NAME);
 
         // Allocate a new payload
         KuraPayload payload = new KuraPayload();
@@ -210,6 +183,12 @@ public class Publisher implements ConfigurableComponent, CloudClientListener, IP
             s_logger.error("Cannot publish topic: " + topic, e);
         }
 		
+	}
+
+	private void getMqttClient() throws KuraException {
+		s_logger.info("Getting CloudClient for {}...", APP_ID);
+		this.m_cloudClient = this.m_cloudService.newCloudClient(APP_ID);
+		this.m_cloudClient.addCloudClientListener(this);
 	}
 
 }

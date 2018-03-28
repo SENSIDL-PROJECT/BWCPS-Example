@@ -10,11 +10,8 @@
             type="String"
             cardinality="0" 
             required="true"
-            default="heater" 
-            description="The Application that you want to subscribe to -shall be unique-."/>
-
-      
-        
+            default="publisher" 
+            description="The Application (publisher) that you want to subscribe to -shall be unique-. Same id as the publisher"/>       
 
         <AD id="subscribe.semanticTopic"  
             name="subscribe.semanticTopic"

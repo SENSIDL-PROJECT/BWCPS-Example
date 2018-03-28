@@ -4,10 +4,6 @@ import java.util.List;
 
 public class DefaultDataPresenter implements DataPresenter {
 	
-	public DefaultDataPresenter() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	public void display(List<DataRepresentation> dataToDisplay) {
 		

@@ -56,17 +56,10 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener, I
 
 	protected void activate(ComponentContext componentContext, Map<String, Object> properties) {
 		this.m_properties = properties;
-		SUBSCRIBER_APP_ID = (String) this.m_properties.get(APP_ID);
+		this.SUBSCRIBER_APP_ID = (String) this.m_properties.get(APP_ID);
 
 		for (String s : this.m_properties.keySet()) {
 			s_logger.info("Activate - " + s + ": " + this.m_properties.get(s));
-		}
-
-		try {
-			getMqttClient();
-		} catch (KuraException e) {
-			s_logger.error("Error during component activation", e);
-			throw new ComponentException(e);
 		}
 
 		s_logger.info("Activating the service subscription... Done.");
@@ -98,7 +91,7 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener, I
 
 	@Override
 	public void onMessageArrived(String deviceId, String appTopic, KuraPayload msg, int qos, boolean retain) {
-		s_logger.info("message arrived! appTopic: {}; message: {}", appTopic, msg.getMetric("temperatureInternal"));
+		s_logger.info("message arrived! appTopic: {}; message: {}", appTopic, msg.getMetric("temperature"));
 	}
 
 	@Override
@@ -131,48 +124,22 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener, I
 
 	}
 
-	private void getMqttClient() throws KuraException {
-		s_logger.info("Getting CloudClient for {}...", SUBSCRIBER_APP_ID);
-		this.m_cloudClient = this.m_cloudService.newCloudClient(SUBSCRIBER_APP_ID);
-		this.m_cloudClient.addCloudClientListener(this);
-
-		doUpdate(false);
-	}
-
-	private void doUpdate(boolean onUpdate) {
-		// cancel a current worker handle if one if active
-		if (this.m_handle != null) {
-			this.m_handle.cancel(true);
+	@Override
+	public boolean isConnected() {
+		if (this.m_cloudClient == null) {
+			return false;
 		}
-
-		this.m_handle = this.m_worker.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				Thread.currentThread().setName(getClass().getSimpleName());
-				doSubscribe();
-			}
-		}, 0, 2, TimeUnit.SECONDS);
-	}
-
-	private void doSubscribe() {
-		String topic = (String) this.m_properties.get(PUBLISH_TOPIC_PROP_NAME);
-		Integer qos = (Integer) this.m_properties.get(PUBLISH_QOS_PROP_NAME);
-
-		try {
-			if (this.m_cloudClient.isConnected() && !this.m_subscriptions.containsKey(topic)) {
-				this.m_cloudClient.subscribe(topic, qos);
-				s_logger.info("Subscribed to topic: {} with QOS: {}", topic, qos);
-				this.m_subscriptions.put(topic, qos);
-			}
-		} catch (KuraException ex) {
-			s_logger.error("Cannot subscribe to topic: " + topic, ex);
-		}
+		return this.m_cloudClient.isConnected();
 	}
 
 	@Override
 	public void connect() throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			getMqttClient();
+		} catch (KuraException e) {
+			s_logger.error("Error during component activation", e);
+			throw new ComponentException(e);
+		}		
 	}
 
 	@Override
@@ -182,14 +149,8 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener, I
 	}
 
 	@Override
-	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void subscribe() throws Exception {
-		// TODO Auto-generated method stub
+		doUpdate(false);
 		
 	}
 
@@ -203,6 +164,42 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener, I
 	public void setArrivedMessageHandler(Consumer<String> arrivedMessageHandler) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	private void getMqttClient() throws KuraException {
+		s_logger.info("Getting CloudClient for {}...", SUBSCRIBER_APP_ID);
+		this.m_cloudClient = this.m_cloudService.newCloudClient(SUBSCRIBER_APP_ID);
+		this.m_cloudClient.addCloudClientListener(this);
+	}
+
+	private void doUpdate(boolean onUpdate) {
+		// cancel a current worker handle if one if active
+		if (this.m_handle != null) {
+			this.m_handle.cancel(true);
+		}
+	
+		this.m_handle = this.m_worker.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				Thread.currentThread().setName(getClass().getSimpleName());
+				doSubscribe();
+			}
+		}, 0, 2, TimeUnit.SECONDS);
+	}
+
+	private void doSubscribe() {
+		String topic = (String) this.m_properties.get(PUBLISH_TOPIC_PROP_NAME);
+		Integer qos = (Integer) this.m_properties.get(PUBLISH_QOS_PROP_NAME);
+	
+		try {
+			if (this.m_cloudClient.isConnected() && !this.m_subscriptions.containsKey(topic)) {
+				this.m_cloudClient.subscribe(topic, qos);
+				s_logger.info("Subscribed to topic: {} with QOS: {}", topic, qos);
+				this.m_subscriptions.put(topic, qos);
+			}
+		} catch (KuraException ex) {
+			s_logger.error("Cannot subscribe to topic: " + topic, ex);
+		}
 	}
 
 }

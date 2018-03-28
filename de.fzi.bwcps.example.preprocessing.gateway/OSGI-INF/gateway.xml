@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" immediate="true" name="de.fzi.bwcps.example.preprocessing.gateway.GatewayPreprocessor">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.fzi.bwcps.example.preprocessing.gateway.GatewayPreprocessor">
    <implementation class="de.fzi.bwcps.example.preprocessing.gateway.GatewayPreprocessor"/>
    <reference bind="setSubscriber" cardinality="1..1" interface="de.fzi.bwcps.example.com.pubsub.ISubscriber" name="ISubscriber" policy="static" unbind="unsetSubscriber"/>
-   <service>
-      <provide interface="de.fzi.bwcps.example.preprocessing.DataProcessor"/>
-   </service>
+   <reference bind="setPresenter" cardinality="1..1" interface="de.fzi.bwcps.example.presentation.DataPresenter" name="DataPresenter" policy="static" unbind="unsetPresenter"/>
 </scr:component>

@@ -6,10 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.kura.KuraException;
 import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,15 +21,15 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 	private IPublisher publisher;
 	private DataProcessorManager<MeasuredData<Object>, String> procManager;
-	
+
 	private static final Logger s_logger = LoggerFactory.getLogger(SensorPreprocessor.class);
 
 	public SensorPreprocessor() {
-		
+
 	}
-		
+
 	public synchronized void setPublisher(IPublisher publisher) {
-		this.publisher = publisher;
+		this.publisher = initPublisher(publisher);
 		s_logger.info("publisher set");
 	}
 
@@ -42,18 +39,22 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 			s_logger.info("publisher unset");
 		}
 	}
-	
-	protected void activate(ComponentContext componentContext,
-			Map<String, Object> properties) {
+
+	protected void activate(ComponentContext componentContext, Map<String, Object> properties) {
 		s_logger.info("activate preprocessor");
 		this.procManager = initDataProcessorManager();
-		
+
 	}
-	public void deactivate(ComponentContext componentContext) throws KuraException {
-		
-	}
-	public void updated(ComponentContext componentContext) throws KuraException {
-		
+
+	private IPublisher initPublisher(IPublisher newPublisher) {
+		try {
+			if (newPublisher.isConnected() == false) {
+				newPublisher.connect();
+			}
+			return newPublisher;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private DataProcessorManager<MeasuredData<Object>, String> initDataProcessorManager() {
@@ -68,27 +69,6 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 		return new DataProcessorManager<MeasuredData<Object>, String>(inputDataToConverter, outputPipe,
 				Arrays.asList(converter, serializer));
-
-	}
-
-	private IPublisher initPublisher(IPublisher newPublisher) {
-
-		return newPublisher.isConnected() ? newPublisher : startToConnect(newPublisher);
-
-	}
-
-	private IPublisher startToConnect(IPublisher newPublisher) {
-
-		try {
-
-			newPublisher.connect();
-			return newPublisher;
-
-		} catch (Exception e) {
-
-			throw new RuntimeException(e);
-
-		}
 
 	}
 
