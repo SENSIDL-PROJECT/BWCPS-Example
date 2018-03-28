@@ -12,3 +12,5 @@ Import-Package: org.eclipse.kura;version="1.0.0",
  org.slf4j;version="1.6.4"
 Service-Component: OSGI-INF/subscribe.xml
 Bundle-ActivationPolicy: lazy
+Export-Package: de.fzi.bwcps.example.subscriber
+Require-Bundle: de.fzi.bwcps.example.com

@@ -11,7 +11,7 @@
    
    <property name="service.pid" type="String" value="de.fzi.bwcps.example.subscriber.Subscriber"/>
    <service>
-      <provide interface="de.fzi.bwcps.example.subscriber.Subscriber"/>
+      <provide interface="de.fzi.bwcps.example.com.pubsub.ISubscriber"/>
    </service>
    
    <reference name="CloudService"

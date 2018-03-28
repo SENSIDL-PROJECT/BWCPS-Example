@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Presentation
 Bundle-SymbolicName: de.fzi.bwcps.example.presentation
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: de.fzi.bwcps.example.presentation.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.osgi.framework;version="1.3.0"
-Export-Package: de.fzi.bwcps.example.presentation,
- de.fzi.bwcps.example.presentation.factory
+Export-Package: de.fzi.bwcps.example.presentation
+Service-Component: OSGI-INF/presentation.xml
+Bundle-ActivationPolicy: lazy

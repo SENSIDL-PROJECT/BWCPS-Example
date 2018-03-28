@@ -1,11 +1,13 @@
 package de.fzi.bwcps.example.subscriber;
 
+import de.fzi.bwcps.example.com.pubsub.ISubscriber;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import org.eclipse.kura.KuraException;
 import org.eclipse.kura.cloud.CloudClient;
@@ -19,7 +21,7 @@ import org.osgi.service.component.ComponentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Subscriber implements ConfigurableComponent, CloudClientListener {
+public class Subscriber implements ConfigurableComponent, CloudClientListener, ISubscriber {
 
 	private static final Logger s_logger = LoggerFactory.getLogger(Subscriber.class);
 
@@ -165,6 +167,42 @@ public class Subscriber implements ConfigurableComponent, CloudClientListener {
 		} catch (KuraException ex) {
 			s_logger.error("Cannot subscribe to topic: " + topic, ex);
 		}
+	}
+
+	@Override
+	public void connect() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disconnect() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isConnected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void subscribe() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void subscribe(String topic) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setArrivedMessageHandler(Consumer<String> arrivedMessageHandler) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

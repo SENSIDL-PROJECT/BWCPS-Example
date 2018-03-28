@@ -4,18 +4,24 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.kura.KuraException;
+import org.osgi.service.component.ComponentContext;
+
 import de.fzi.bwcps.example.sensor.DataSource;
 
 public class GalileoGen2DataSource implements DataSource {
 
-	private final DataFetcher dataFetcher;
+	private DataFetcher dataFetcher;
 	
-	public GalileoGen2DataSource(DataFetcher dataFetcher) {
-		
-		this.dataFetcher = dataFetcher;
-		
+	protected void activate(ComponentContext componentContext) {
+		dataFetcher = new RandomDataGenerator();
 	}
-
+	
+	protected void deactivate(ComponentContext componentContext) throws KuraException {
+		dataFetcher = null;
+	}
+	
+	
 	@Override
 	public Map<String, Object> produce() {
 		

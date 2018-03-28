@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"	name="de.fzi.bwcps.example.publisher.Publisher">
+
+   <implementation class="de.fzi.bwcps.example.publisher.Publisher"/>
+   
+   <property name="service.pid" type="String" value="de.fzi.bwcps.example.publisher.Publisher"/>
+   <service>
+      <provide interface="de.fzi.bwcps.example.com.pubsub.IPublisher"/>
+   </service>
+   
+   <reference name="CloudService"
+              policy="static"
+              bind="setCloudService"       
+              unbind="unsetCloudService"       
+              cardinality="1..1" 
+              interface="org.eclipse.kura.cloud.CloudService"
+              target="(kura.service.pid=org.eclipse.kura.cloud.CloudService)"/>
+</scr:component>

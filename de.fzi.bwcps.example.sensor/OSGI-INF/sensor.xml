@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.fzi.bwcps.example.sensor.DataSourceManager">
+   <implementation class="de.fzi.bwcps.example.sensor.DataSourceManager"/>
+   <!--<reference bind="setDataProcessor" cardinality="1..1" interface="de.fzi.bwcps.example.preprocessing.DataProcessor" name="DataProcessor" policy="static" unbind="unsetDataProcessor"/>-->
+   <reference bind="setDataSource" cardinality="1..1" interface="de.fzi.bwcps.example.sensor.DataSource" name="GalileoGen2DataSource" policy="static" unbind="unsetDataSource"/>
+   <reference bind="setDataProcessor" cardinality="1..1" interface="de.fzi.bwcps.example.preprocessing.DataProcessor" name="DataProcessor" policy="static" unbind="unsetDataProcessor"/>
+   
+</scr:component>
