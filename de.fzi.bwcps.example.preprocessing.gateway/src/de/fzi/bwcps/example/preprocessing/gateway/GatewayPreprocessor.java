@@ -80,7 +80,6 @@ public class GatewayPreprocessor implements DataProcessor<String> {
 			}
 			
 			newSubscriber.setArrivedMessageHandler(message -> this.process(message));
-			newSubscriber.subscribe();
 			
 			return newSubscriber;
 		
