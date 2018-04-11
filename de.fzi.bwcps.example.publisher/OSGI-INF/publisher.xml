@@ -7,12 +7,4 @@
    <service>
       <provide interface="de.fzi.bwcps.example.com.pubsub.IPublisher"/>
    </service>
-   
-   <reference name="CloudService"
-              policy="static"
-              bind="setCloudService"       
-              unbind="unsetCloudService"       
-              cardinality="1..1" 
-              interface="org.eclipse.kura.cloud.CloudService"
-              target="(kura.service.pid=org.eclipse.kura.cloud.CloudService)"/>
 </scr:component>

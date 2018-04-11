@@ -5,10 +5,8 @@ Bundle-SymbolicName: de.fzi.bwcps.example.publisher
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: de.fzi.bwcps.example.com;bundle-version="1.0.0"
-Import-Package: org.eclipse.kura;version="1.0.0",
- org.eclipse.kura.cloud;version="1.0.0",
- org.eclipse.kura.configuration;version="1.0.0",
- org.eclipse.kura.message;version="1.0.0",
+Import-Package: org.eclipse.paho.client.mqttv3;version="1.1.0",
+ org.eclipse.paho.client.mqttv3.persist;version="1.1.0",
  org.osgi.service.component;version="1.2.0",
  org.slf4j;version="1.6.4"
 Service-Component: OSGI-INF/publisher.xml

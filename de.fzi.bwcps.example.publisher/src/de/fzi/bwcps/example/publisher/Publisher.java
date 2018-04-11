@@ -1,194 +1,130 @@
 package de.fzi.bwcps.example.publisher;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
+import java.util.function.Consumer;
 
-import org.eclipse.kura.KuraException;
-import org.eclipse.kura.cloud.CloudClient;
-import org.eclipse.kura.cloud.CloudClientListener;
-import org.eclipse.kura.cloud.CloudService;
-import org.eclipse.kura.configuration.ConfigurableComponent;
-import org.eclipse.kura.message.KuraPayload;
-import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.ComponentException;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.fzi.bwcps.example.com.ConnectionConfig;
 import de.fzi.bwcps.example.com.pubsub.IPublisher;
 
-public class Publisher implements ConfigurableComponent, CloudClientListener, IPublisher {
 
+public class Publisher implements IPublisher {
+
+	private class MqttMessageCallback implements MqttCallback {
+
+		@Override
+		public void connectionLost(Throwable arg0) {
+
+			
+		}
+
+		@Override
+		public void deliveryComplete(IMqttDeliveryToken arg0) {
+			
+			
+		}
+
+		@Override
+		public void messageArrived(String topic, MqttMessage message) throws Exception {
+			
+			if (arrivedMessageHandler != null)
+				arrivedMessageHandler.accept(new String(message.getPayload()));
+			
+		}	
+		
+	}
+	
+	private final ConnectionConfig config;
+	private final MqttClient client;
+	
 	private static final Logger s_logger = LoggerFactory.getLogger(Publisher.class);
 	
-    private static final String PUBLISH_TOPIC_PROP_NAME = "publish.semanticTopic";
-    private static final String PUBLISH_QOS_PROP_NAME = "publish.qos";
-    private static final String PUBLISH_RETAIN_PROP_NAME = "publish.retain";
-	
-	// Cloud Application identifier
-    private static final String APP_ID = "publisher";
-	
-	private CloudService m_cloudService;
-	private CloudClient m_cloudClient;
-
-	private Map<String, Object> m_properties;
-	
-	//private boolean isConnected = false;
+	private Consumer<String> arrivedMessageHandler = null;
 	
 	public Publisher() {
-		super();
-	}
-
-	public void setCloudService(CloudService cloudService) {
-		this.m_cloudService = cloudService;
-	}
-
-	public void unsetCloudService(CloudService cloudService) {
-		this.m_cloudService = null;
-	}
-
-	protected void activate(ComponentContext componentContext, Map<String, Object> properties) {
 		
-		this.m_properties = properties;
-
-		for (String s : this.m_properties.keySet()) {
-			s_logger.info("Activate - " + s + ": " + this.m_properties.get(s));
-		}
-
-		/*try {
-			getMqttClient();
-		} catch (KuraException e) {
-			s_logger.error("Error during component activation", e);
-			throw new ComponentException(e);
-		}*/
-
-		s_logger.info("Activating the service subscription... Done.");
-		//isConnected = true;
-	}
-	protected void deactivate(ComponentContext componentContext) throws KuraException {
-		s_logger.debug("Deactivating Heater...");
-
-		// Releasing the CloudApplicationClient
-		s_logger.info("Releasing CloudApplicationClient for {}...", APP_ID);
-
-		m_cloudClient.unsubscribe(APP_ID);
-
-		s_logger.debug("Deactivating service... Done.");
-	}
-
-	public void updated(Map<String, Object> properties) throws KuraException {
-		s_logger.info("Updated Subscriber...");
-
-		// store the properties received
-		this.m_properties = properties;
-		for (String s : this.m_properties.keySet()) {
-			s_logger.info("Update - " + s + ": " + this.m_properties.get(s));
-		}
-
-		s_logger.info("Updated Subscriber... Done.");
+		this(ConnectionConfig.defaultConfig());
+		
 	}
 	
+	public Publisher(ConnectionConfig config) {
+		
+		this.config = config;
+		this.client = create();
+		
+	}
 	
-	//CloudClientListener
-	@Override
-	public void onConnectionEstablished() {
-		// TODO Auto-generated method stub
+	private MqttClient create() {
+		
+		try {
+			
+			MqttClient client = new MqttClient(config.broker, createUniqueClientId(), new MemoryPersistence());
+			client.setCallback(new MqttMessageCallback());
+			return client;
+			
+		} catch (MqttException e) {
+			
+			throw new RuntimeException(e);
+			
+		}
 		
 	}
 
-	@Override
-	public void onConnectionLost() {
-		// TODO Auto-generated method stub
+	private String createUniqueClientId() {
+		
+		return config.clientId.concat(new Long(System.currentTimeMillis()).toString());
+		
 		
 	}
 
-	@Override
-	public void onControlMessageArrived(String arg0, String arg1, KuraPayload arg2, int arg3, boolean arg4) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMessageArrived(String arg0, String arg1, KuraPayload arg2, int arg3, boolean arg4) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMessageConfirmed(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMessagePublished(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//Publisher
 	@Override
 	public void connect() throws Exception {
-		try {
-			getMqttClient();
-		} catch (KuraException e) {
-			s_logger.error("Error during component activation", e);
-			throw new ComponentException(e);
-		}		
+		
+		MqttConnectOptions options = new MqttConnectOptions();
+        options.setCleanSession(true);
+        client.connect(options);
+		
 	}
 
 	@Override
 	public void disconnect() throws Exception {
-		// TODO Auto-generated method stub
+		
+		client.disconnect();
 		
 	}
-
+	
 	@Override
 	public boolean isConnected() {
-		if (this.m_cloudClient == null) {
-			return false;
-		}
-		return this.m_cloudClient.isConnected();
+		
+		return client.isConnected();
+		
 	}
 
 	@Override
 	public void publish(String message) throws Exception {
-		// fetch the publishing configuration from the publishing properties
-        String topic = (String) this.m_properties.get(PUBLISH_TOPIC_PROP_NAME);
-        Integer qos = (Integer) this.m_properties.get(PUBLISH_QOS_PROP_NAME);
-        Boolean retain = (Boolean) this.m_properties.get(PUBLISH_RETAIN_PROP_NAME);
+		
+		MqttMessage mqttMessage = toMqttMessage(message);
+		client.publish(config.topic, mqttMessage);
 
-        // Allocate a new payload
-        KuraPayload payload = new KuraPayload();
-
-        // Timestamp the message
-        payload.setTimestamp(new Date());
-
-        // Add the temperature as a metric to the payload
-        payload.addMetric("temperature", message);
-
-        Random random = new Random();
-        int code = random.nextInt();
-        if (random.nextInt() % 5 == 0) {
-            payload.addMetric("errorCode", code);
-        } else {
-            payload.addMetric("errorCode", 0);
-        }
-
-        // Publish the message
-        try {
-            this.m_cloudClient.publish(topic, payload, qos, retain);
-            s_logger.info("Published to {} message: {}", topic, payload);
-        } catch (Exception e) {
-            s_logger.error("Cannot publish topic: " + topic, e);
-        }
+		s_logger.info("published to: " + config.topic + "msg: " + mqttMessage);
 		
 	}
 
-	private void getMqttClient() throws KuraException {
-		s_logger.info("Getting CloudClient for {}...", APP_ID);
-		this.m_cloudClient = this.m_cloudService.newCloudClient(APP_ID);
-		this.m_cloudClient.addCloudClientListener(this);
+	private MqttMessage toMqttMessage(String message) {
+		
+		byte[] bytes = message.getBytes();
+		MqttMessage mqttMessage = new MqttMessage(bytes);
+		mqttMessage.setQos(config.qos);
+		return mqttMessage;
+		
 	}
 
 }
