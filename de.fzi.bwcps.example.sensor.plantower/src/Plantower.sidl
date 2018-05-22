@@ -1,0 +1,14 @@
+sensorInterface Plantower {
+	
+	encoding : SENSIDL_JSON,
+	endianness : LITTLE_ENDIAN,
+	alignment : 1 BIT 
+	
+	sensorData {
+		dataSet PlantowerData {
+			PMSx003_1 as FLOAT in g/m
+			PMSx003_2 as FLOAT in g/m
+			PMSx003_3 as FLOAT in g/m
+		}
+	}
+}

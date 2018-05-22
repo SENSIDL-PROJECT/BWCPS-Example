@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_Zh8YkF2eEeilld6oWfyibg" name="Plantower">
+  <encodingSettings ID="_Zh8YkV2eEeilld6oWfyibg" coding="SENSIDL_JSON" endianness="LITTLE_ENDIAN"/>
+  <dataDescription ID="_Zh8Ykl2eEeilld6oWfyibg">
+    <dataSets ID="_Zh8Yk12eEeilld6oWfyibg" name="PlantowerData">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_Zh8YlF2eEeilld6oWfyibg" name="PMSx003_1" dataType="FLOAT" unit="kg/m"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_Zh8YlV2eEeilld6oWfyibg" name="PMSx003_2" dataType="FLOAT" unit="kg/m"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_Zh8Yll2eEeilld6oWfyibg" name="PMSx003_3" dataType="FLOAT" unit="kg/m"/>
+    </dataSets>
+  </dataDescription>
+</de.fzi.sensidl.design:SensorInterface>

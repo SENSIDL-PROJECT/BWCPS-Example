@@ -1,14 +1,14 @@
 package de.fzi.bwcps.example.dataprocessing.sensor;
 
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Utility;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.preprocessing.SingleInputSingleOutputFilter;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerUtility;
 
-public class DataSerializer extends SingleInputSingleOutputFilter<MeasuredData<GalileoGen2Data>, String> {
+public class DataSerializer extends SingleInputSingleOutputFilter<MeasuredData<PlantowerData>, String> {
 
-	public DataSerializer(DataPipe<MeasuredData<GalileoGen2Data>> input, DataPipe<String> output) {
+	public DataSerializer(DataPipe<MeasuredData<PlantowerData>> input, DataPipe<String> output) {
 		
 		super(input, output);
 		
@@ -17,8 +17,8 @@ public class DataSerializer extends SingleInputSingleOutputFilter<MeasuredData<G
 	@Override
 	public void apply() {
 		
-		GalileoGen2Data measurement = getInputData().getMeasuredData();
-		String result = GalileoGen2Utility.marshalJSON(measurement);
+		PlantowerData measurement = getInputData().getMeasuredData();
+		String result = PlantowerUtility.marshalJSON(measurement);
 		
 		addResultToOutput(result);
 		

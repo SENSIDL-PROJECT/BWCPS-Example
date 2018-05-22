@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
 
 import de.fzi.bwcps.example.com.pubsub.ISubscriber;
 import de.fzi.bwcps.example.dataprocessing.util.DataProcessorManager;
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.DataProcessor;
 import de.fzi.bwcps.example.presentation.DataPresenter;
 import de.fzi.bwcps.example.presentation.DataRepresentation;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
 
 public class GatewayPreprocessor implements DataProcessor<String> {
 
-	private DataProcessorManager<String, GalileoGen2Data> procManager;
+	private DataProcessorManager<String, PlantowerData> procManager;
 	private ISubscriber subscriber;
 	private DataPresenter presenter;
 	
@@ -56,14 +56,14 @@ public class GatewayPreprocessor implements DataProcessor<String> {
 	}
 	
 
-	private DataProcessorManager<String, GalileoGen2Data> initDataProcessorManager() {
+	private DataProcessorManager<String, PlantowerData> initDataProcessorManager() {
 		
 		DataPipe<String> inputDataToDeserialized = new DataPipe<String>();
-		DataPipe<GalileoGen2Data> outputPipe = new DataPipe<GalileoGen2Data>();
+		DataPipe<PlantowerData> outputPipe = new DataPipe<PlantowerData>();
 		
 		DataDeserializer deserializer = new DataDeserializer(inputDataToDeserialized, outputPipe);
 		
-		return new DataProcessorManager<String, GalileoGen2Data>(inputDataToDeserialized, 
+		return new DataProcessorManager<String, PlantowerData>(inputDataToDeserialized, 
 																 outputPipe, 
 																 Arrays.asList(deserializer));	
 		
@@ -97,22 +97,23 @@ public class GatewayPreprocessor implements DataProcessor<String> {
 		procManager.resetWithNew(Arrays.asList(measurement));
 		procManager.applyAllFilter();
 		
-		GalileoGen2Data result = procManager.getFirstResult()
+		PlantowerData result = procManager.getFirstResult()
 											.orElseThrow(() -> new RuntimeException(String.format("%1s terminated with no result.", this.getClass().getName())));
 		display(result);
 		
 	}
 
-	private void display(GalileoGen2Data result) {
+	private void display(PlantowerData result) {
 		
 		presenter.display(makePresentable(result));
 		
 	}
 
-	private List<DataRepresentation> makePresentable(GalileoGen2Data result) {
+	private List<DataRepresentation> makePresentable(PlantowerData result) {
 		
-		return Arrays.asList(new DataRepresentation("Light", result.getLight().toString()),
-							 new DataRepresentation("Temperature", result.getTemperature().toString()));
+		return Arrays.asList(new DataRepresentation("#1", result.getPMSx0031().toString()),
+								new DataRepresentation("#2", result.getPMSx0032().toString()),
+								new DataRepresentation("#3", result.getPMSx0033().toString()));
 		
 	}
 

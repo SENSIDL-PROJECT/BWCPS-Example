@@ -3,14 +3,14 @@ package de.fzi.bwcps.example.preprocessing.gateway;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Utility;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.SingleInputSingleOutputFilter;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerUtility;
 
-public class DataDeserializer extends SingleInputSingleOutputFilter<String,GalileoGen2Data> {
+public class DataDeserializer extends SingleInputSingleOutputFilter<String, PlantowerData> {
 
-	public DataDeserializer(DataPipe<String> input, DataPipe<GalileoGen2Data> output) {
+	public DataDeserializer(DataPipe<String> input, DataPipe<PlantowerData> output) {
 		
 		super(input, output);
 
@@ -19,8 +19,8 @@ public class DataDeserializer extends SingleInputSingleOutputFilter<String,Galil
 	@Override
 	public void apply() {
 
-		GalileoGen2Data result = GalileoGen2Utility.unmarshalJSON(createBufferedReader(), 
-																  			new GalileoGen2Data());		
+		PlantowerData result = PlantowerUtility.unmarshalJSON(createBufferedReader(), 
+																  			new PlantowerData());		
 		
 		addResultToOutput(result);
 		

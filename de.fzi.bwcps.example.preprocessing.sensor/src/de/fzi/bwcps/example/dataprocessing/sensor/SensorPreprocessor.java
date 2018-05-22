@@ -3,6 +3,7 @@ package de.fzi.bwcps.example.dataprocessing.sensor;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,10 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import de.fzi.bwcps.example.com.pubsub.IPublisher;
 import de.fzi.bwcps.example.dataprocessing.util.DataProcessorManager;
-import de.fzi.bwcps.example.galileogen2.gen.GalileoGen2Data;
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.DataProcessor;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
+import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
 
 public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
@@ -60,10 +61,10 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 	private DataProcessorManager<MeasuredData<Object>, String> initDataProcessorManager() {
 
 		DataPipe<MeasuredData<Object>> inputDataToConverter = new DataPipe<MeasuredData<Object>>();
-		DataPipe<MeasuredData<GalileoGen2Data>> converterToSerializer = new DataPipe<MeasuredData<GalileoGen2Data>>();
+		DataPipe<MeasuredData<PlantowerData>> converterToSerializer = new DataPipe<MeasuredData<PlantowerData>>();
 		DataPipe<String> outputPipe = new DataPipe<String>();
 
-		RawToGalileoGen2DataConverter converter = new RawToGalileoGen2DataConverter(inputDataToConverter,
+		RawToPlantowerDataConverter converter = new RawToPlantowerDataConverter(inputDataToConverter,
 				converterToSerializer);
 		DataSerializer serializer = new DataSerializer(converterToSerializer, outputPipe);
 
@@ -77,7 +78,9 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 		procManager.resetWithNew(transform(measurements.entrySet().stream()));
 		procManager.applyAllFilter();
-		procManager.getFirstResult().ifPresent(result -> publish(result));
+		
+		Optional<String> firstResult = procManager.getFirstResult();
+		firstResult.ifPresent(result -> publish(result));
 
 	}
 
