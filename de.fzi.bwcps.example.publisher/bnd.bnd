@@ -1,0 +1,3 @@
+-runrequires: bnd.identity;version='latest';id='de.fzi.bwcps.example.com'
+Export-Package: de.fzi.bwcps.example.publisher
+-buildpath: de.fzi.bwcps.example.com;version=latest

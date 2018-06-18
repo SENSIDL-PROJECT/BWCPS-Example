@@ -5,8 +5,8 @@ import java.io.StringReader;
 
 import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.SingleInputSingleOutputFilter;
-import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
-import de.fzi.bwcps.example.sensor.plantower.PlantowerUtility;
+import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerData;
+import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerUtility;
 
 public class DataDeserializer extends SingleInputSingleOutputFilter<String, PlantowerData> {
 

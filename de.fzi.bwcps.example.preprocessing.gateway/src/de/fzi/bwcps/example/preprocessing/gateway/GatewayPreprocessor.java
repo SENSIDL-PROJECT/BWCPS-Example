@@ -13,7 +13,7 @@ import de.fzi.bwcps.example.preprocessing.DataPipe;
 import de.fzi.bwcps.example.preprocessing.DataProcessor;
 import de.fzi.bwcps.example.presentation.DataPresenter;
 import de.fzi.bwcps.example.presentation.DataRepresentation;
-import de.fzi.bwcps.example.sensor.plantower.PlantowerData;
+import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerData;
 
 public class GatewayPreprocessor implements DataProcessor<String> {
 

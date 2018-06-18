@@ -1,0 +1,2 @@
+Export-Package: de.fzi.bwcps.example.sensor
+-buildpath: de.fzi.bwcps.example.dataprocessing;version=latest

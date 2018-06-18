@@ -9,8 +9,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import de.fzi.bwcps.example.com.ConnectionConfig;
 import de.fzi.bwcps.example.com.pubsub.IPublisher;
@@ -45,7 +45,7 @@ public class Publisher implements IPublisher {
 	private final ConnectionConfig config;
 	private final MqttClient client;
 	
-	private static final Logger s_logger = LoggerFactory.getLogger(Publisher.class);
+	//private static final Logger s_logger = LoggerFactory.getLogger(Publisher.class);
 	
 	private Consumer<String> arrivedMessageHandler = null;
 	
@@ -114,7 +114,7 @@ public class Publisher implements IPublisher {
 		MqttMessage mqttMessage = toMqttMessage(message);
 		client.publish(config.topic, mqttMessage);
 
-		s_logger.info("published to: " + config.topic + "msg: " + mqttMessage);
+		//s_logger.info("published to: " + config.topic + "msg: " + mqttMessage);
 		
 	}
 

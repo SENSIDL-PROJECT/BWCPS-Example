@@ -1,0 +1,4 @@
+Export-Package: \
+	de.fzi.bwcps.example.preprocessing,\
+	de.fzi.bwcps.example.dataprocessing.util
+-buildpath: org.apache.felix.framework

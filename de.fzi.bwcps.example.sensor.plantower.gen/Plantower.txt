@@ -1,0 +1,31 @@
+/*
+*File:							Plantower.txt
+*Version:						
+*Generate at:					22/05/2018 10:59:13
+*Further generated artifacts:	
+*/
+
+----------------------------------------
+name: Plantower
+time: Tue May 22 10:59:13 CEST 2018
+----------------------------------------
+This is the documentation for the sensor interface "Plantower" (ID: _Zh8YkF2eEeilld6oWfyibg).
+The encoding (ID: _Zh8YkV2eEeilld6oWfyibg) is sensidl json and the endianness is little endian. It is aligned by 1 bit.
+The sensor data (ID: _Zh8Ykl2eEeilld6oWfyibg) of "Plantower" consists of 1 data set: PlantowerData.
+
+====================================================================================================
+
+The data set "PlantowerData" (ID: _Zh8Yk12eEeilld6oWfyibg) contains 3 datas: PMSx003_1, PMSx003_2 and PMSx003_3.
+It provides no additional method.
+
+The measurement data "PMSx003_1" (ID: _Zh8YlF2eEeilld6oWfyibg) has the data type FLOAT.
+It has the unit g/m.
+
+The measurement data "PMSx003_2" (ID: _Zh8YlV2eEeilld6oWfyibg) has the data type FLOAT.
+It has the unit g/m.
+
+The measurement data "PMSx003_3" (ID: _Zh8Yll2eEeilld6oWfyibg) has the data type FLOAT.
+It has the unit g/m.
+
+----------------------------------------------------------------------------------------------------
+

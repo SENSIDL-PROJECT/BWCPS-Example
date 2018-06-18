@@ -1,0 +1,2 @@
+Export-Package: de.fzi.bwcps.example.com.pubsub
+Private-Package: de.fzi.bwcps.example.com
