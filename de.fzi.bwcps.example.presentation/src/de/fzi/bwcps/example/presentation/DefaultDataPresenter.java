@@ -2,6 +2,9 @@ package de.fzi.bwcps.example.presentation;
 
 import java.util.List;
 
+import org.osgi.service.component.annotations.Component;
+
+@Component(service = DataPresenter.class)
 public class DefaultDataPresenter implements DataPresenter {
 	
 	@Override

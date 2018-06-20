@@ -1,0 +1,2 @@
+Export-Package: de.fzi.bwcps.example.presentation
+-buildpath: osgi.cmpn

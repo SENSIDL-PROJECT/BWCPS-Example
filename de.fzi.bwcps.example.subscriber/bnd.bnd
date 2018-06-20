@@ -1,0 +1,5 @@
+Export-Package: de.fzi.bwcps.example.subscriber
+-buildpath: \
+	de.fzi.bwcps.example.com,\
+	osgi.cmpn
+Private-Package: de.fzi.bwcps.example.subscriber.adapter

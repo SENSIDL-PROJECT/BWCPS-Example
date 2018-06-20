@@ -9,9 +9,13 @@ import java.util.function.Consumer;
 import org.eclipse.kura.KuraException;
 import org.eclipse.kura.data.DataService;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Component(service = ISubscriber.class)
 public class Subscriber implements DataServiceAdapter, ISubscriber {
 
 	private static final Logger s_logger = LoggerFactory.getLogger(Subscriber.class);
@@ -23,6 +27,7 @@ public class Subscriber implements DataServiceAdapter, ISubscriber {
 		super();
 	}
 	
+	@Reference
 	protected void setDataService(DataService dataService) {
         this.dataService = dataService;
     }
@@ -31,6 +36,7 @@ public class Subscriber implements DataServiceAdapter, ISubscriber {
         this.dataService = null;
     }
 	
+	@Activate
 	protected void activate(ComponentContext componentContext) throws Exception {
 		dataService.addDataServiceListener(this);
 		subscribe();
