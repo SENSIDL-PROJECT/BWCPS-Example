@@ -1,1 +1,3 @@
 Export-Package: de.fzi.bwcps.example.sensor.plantower.gen
+Include-Resource: com.google.gson_2.2.4.v201311231704.jar
+Bundle-ClassPath: ., com.google.gson_2.2.4.v201311231704.jar

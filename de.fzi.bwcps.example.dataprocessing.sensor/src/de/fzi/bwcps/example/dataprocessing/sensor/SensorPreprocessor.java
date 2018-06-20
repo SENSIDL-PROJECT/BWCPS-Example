@@ -18,6 +18,11 @@ import de.fzi.bwcps.example.preprocessing.DataProcessor;
 import de.fzi.bwcps.example.preprocessing.MeasuredData;
 import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerData;
 
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+@Component(service = DataProcessor.class)
 public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 	private IPublisher publisher;
@@ -29,6 +34,7 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 	}
 
+	@Reference
 	public synchronized void setPublisher(IPublisher publisher) {
 		this.publisher = initPublisher(publisher);
 		//s_logger.info("publisher set");
@@ -40,7 +46,8 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 			//s_logger.info("publisher unset");
 		}
 	}
-
+	
+	@Activate
 	protected void activate(ComponentContext componentContext, Map<String, Object> properties) {
 		//s_logger.info("activate preprocessor");
 		this.procManager = initDataProcessorManager();

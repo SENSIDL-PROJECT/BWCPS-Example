@@ -1,2 +1,6 @@
 Private-Package: de.fzi.bwcps.example.sensor
 Export-Package: de.fzi.bwcps.example.sensor.plantower.source
+-buildpath: \
+	org.apache.felix.scr,\
+	de.fzi.bwcps.example.sensor;version=latest,\
+	osgi.cmpn

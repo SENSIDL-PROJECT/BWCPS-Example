@@ -1,3 +1,9 @@
 -runrequires: bnd.identity;version='latest';id='de.fzi.bwcps.example.com'
 Export-Package: de.fzi.bwcps.example.publisher
--buildpath: de.fzi.bwcps.example.com;version=latest
+-buildpath: \
+	de.fzi.bwcps.example.com;version=latest,\
+	osgi.core,\
+	osgi.cmpn,\
+	org.eclipse.osgi.services,\
+	org.osgi.service.metatype.annotations,\
+	slf4j.api

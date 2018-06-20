@@ -1,2 +1,5 @@
 Export-Package: de.fzi.bwcps.example.sensor
--buildpath: de.fzi.bwcps.example.dataprocessing;version=latest
+-buildpath: \
+	de.fzi.bwcps.example.dataprocessing;version=latest,\
+	org.apache.felix.scr,\
+	osgi.cmpn

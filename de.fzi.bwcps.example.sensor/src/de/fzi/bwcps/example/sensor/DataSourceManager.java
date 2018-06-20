@@ -3,12 +3,16 @@ package de.fzi.bwcps.example.sensor;
 import java.util.Map;
 
 import org.osgi.service.component.ComponentContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import de.fzi.bwcps.example.preprocessing.DataProcessor;
 
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
+@Component
 public class DataSourceManager {
 
 	private class DataProductionJob extends Thread {
@@ -58,32 +62,35 @@ public class DataSourceManager {
 	private DataProcessor<Map<String, Object>> preproc;
 	private DataSource source;
 
-	private static final Logger s_logger = LoggerFactory.getLogger(DataSourceManager.class);
+	//private static final Logger s_logger = LoggerFactory.getLogger(DataSourceManager.class);
 
+	@Reference
 	public synchronized void setDataProcessor(DataProcessor<Map<String, Object>> preproc) {
 		this.preproc = preproc;
-		s_logger.info("preproc set");
+		//s_logger.info("preproc set");
 	}
 
 	public synchronized void unsetDataProcessor(DataProcessor<Map<String, Object>> preproc) {
 		if (this.preproc == preproc) {
 			this.preproc = null;
-			s_logger.info("preproc unset");
+			//s_logger.info("preproc unset");
 		}
 	}
 
+	@Reference
 	public synchronized void setDataSource(DataSource source) {
 		this.source = source;
-		s_logger.info("DataSource set");
+		//s_logger.info("DataSource set");
 	}
 
 	public synchronized void unsetDataSource(DataSource source) {
 		if (this.source == source) {
 			this.source = null;
-			s_logger.info("DataSource unset");
+			//s_logger.info("DataSource unset");
 		}
 	}
 
+	@Activate
 	protected void activate(ComponentContext componentContext) {
 		productionJob = new DataProductionJob(source, preproc);
 		startDataProduction();
