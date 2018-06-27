@@ -1,4 +1,4 @@
-package de.fzi.bwcps.example.preprocessing.gateway;
+package de.fzi.bwcps.example.dataprocessing.gateway;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +18,7 @@ import de.fzi.bwcps.example.presentation.DataPresenter;
 import de.fzi.bwcps.example.presentation.DataRepresentation;
 import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerData;
 
-@Component
+@Component(immediate = true)
 public class GatewayPreprocessor implements DataProcessor<String> {
 
 	private DataProcessorManager<String, PlantowerData> procManager;

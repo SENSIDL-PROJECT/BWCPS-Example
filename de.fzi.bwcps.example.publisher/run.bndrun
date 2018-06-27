@@ -19,7 +19,8 @@
 	org.eclipse.paho.client.mqttv3;version='[1.1.0,1.1.1)',\
 	osgi.cmpn;version='[4.3.0,4.3.1)',\
 	slf4j.api;version='[1.7.21,1.7.22)',\
-	slf4j.simple;version='[1.7.21,1.7.22)'
+	slf4j.simple;version='[1.7.21,1.7.22)',\
+	org.apache.servicemix.bundles.junit;version='[4.12.0,4.12.1)'
 
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
@@ -32,5 +33,6 @@
 	bnd.identity;version='latest';id='de.fzi.bwcps.example.sensor.plantower.source',\
 	bnd.identity;version='latest';id='de.fzi.bwcps.example.publisher',\
 	bnd.identity;id='osgi.cmpn',\
-	bnd.identity;id='slf4j.simple'
+	bnd.identity;id='slf4j.simple',\
+	bnd.identity;id='org.apache.servicemix.bundles.junit'
 -resolve: auto

@@ -1,4 +1,3 @@
-Export-Package: de.fzi.bwcps.example.preprocessing.gateway
 -buildpath: \
 	de.fzi.bwcps.example.dataprocessing,\
 	de.fzi.bwcps.example.sensor.plantower.gen,\
@@ -6,4 +5,6 @@ Export-Package: de.fzi.bwcps.example.preprocessing.gateway
 	slf4j.api,\
 	de.fzi.bwcps.example.com,\
 	de.fzi.bwcps.example.presentation,\
-	osgi.cmpn
+	osgi.cmpn,\
+	org.apache.felix.scr
+Export-Package: de.fzi.bwcps.example.dataprocessing.gateway

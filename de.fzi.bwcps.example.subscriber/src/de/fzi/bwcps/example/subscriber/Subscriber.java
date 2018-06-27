@@ -15,7 +15,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(service = ISubscriber.class)
+@Component(service = ISubscriber.class, property = { "service.pid = de.fzi.bwcps.example.subscriber.Subscriber" })
 public class Subscriber implements DataServiceAdapter, ISubscriber {
 
 	private static final Logger s_logger = LoggerFactory.getLogger(Subscriber.class);

@@ -1,4 +1,4 @@
-package de.fzi.bwcps.example.preprocessing.gateway;
+package de.fzi.bwcps.example.dataprocessing.gateway;
 
 import java.io.BufferedReader;
 import java.io.StringReader;

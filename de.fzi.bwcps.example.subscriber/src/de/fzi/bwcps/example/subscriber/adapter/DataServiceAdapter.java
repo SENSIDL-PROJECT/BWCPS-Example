@@ -2,7 +2,7 @@ package de.fzi.bwcps.example.subscriber.adapter;
 
 import org.eclipse.kura.data.listener.DataServiceListener;
 
-public interface DataServiceAdapter extends DataServiceListener{
+public interface DataServiceAdapter extends DataServiceListener {
 
 	@Override
 	default void onConnectionEstablished() {
