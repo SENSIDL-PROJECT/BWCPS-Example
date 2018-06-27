@@ -1,0 +1,8 @@
+Export-Package: de.fzi.bwcps.example.dataprocessing.sensor
+-buildpath: \
+	de.fzi.bwcps.example.com,\
+	de.fzi.bwcps.example.dataprocessing,\
+	de.fzi.bwcps.example.sensor.plantower.gen,\
+	org.apache.felix.scr,\
+	osgi.cmpn,\
+	org.apache.servicemix.bundles.junit

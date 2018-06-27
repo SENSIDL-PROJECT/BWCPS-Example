@@ -1,0 +1,9 @@
+Export-Package: de.fzi.bwcps.example.subscriber
+-buildpath: \
+	de.fzi.bwcps.example.com,\
+	osgi.cmpn,\
+	slf4j.api,\
+	org.eclipse.kura.api,\
+	org.eclipse.osgi.services,\
+	osgi.core
+Private-Package: de.fzi.bwcps.example.subscriber.adapter
