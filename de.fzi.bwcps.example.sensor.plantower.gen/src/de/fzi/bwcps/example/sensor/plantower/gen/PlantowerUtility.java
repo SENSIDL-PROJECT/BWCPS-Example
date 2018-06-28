@@ -8,6 +8,7 @@
 package de.fzi.bwcps.example.sensor.plantower.gen;
 
 import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

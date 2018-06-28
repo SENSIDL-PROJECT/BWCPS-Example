@@ -22,6 +22,11 @@ public class PlantowerData {
 	/*
 	 * Unit: g/m
 	 */
+	private java.lang.Float checksum;
+	
+	/*
+	 * Unit: g/m
+	 */
 	private java.lang.Float pMSx003_1;
 	
 	/*
@@ -38,7 +43,8 @@ public class PlantowerData {
 	/**
 	 * Constructor for the Data transfer object
 	 */
-	public PlantowerData(java.lang.Float pMSx003_1, java.lang.Float pMSx003_2, java.lang.Float pMSx003_3) {
+	public PlantowerData(java.lang.Float checksum, java.lang.Float pMSx003_1, java.lang.Float pMSx003_2, java.lang.Float pMSx003_3) {
+		this.checksum = checksum;
 		this.pMSx003_1 = pMSx003_1;
 		this.pMSx003_2 = pMSx003_2;
 		this.pMSx003_3 = pMSx003_3;
@@ -51,6 +57,31 @@ public class PlantowerData {
 	
 	}
 	
+	
+	/**
+	 * Method for checkChecksum
+	 * 
+	 * @generated
+	 */	
+	public java.lang.Boolean checkChecksum(){
+		float checksum = pMSx003_1 + pMSx003_2 + pMSx003_3;
+		return this.checksum == checksum;
+	}
+	
+	/**
+	 * @return the checksum
+	 */
+	public java.lang.Float getChecksum() {
+		return this.checksum;
+	}
+	/**
+	 * @param checksum  
+	 *            the checksum to set
+	 */
+	public void setChecksum(java.lang.Float checksum) {
+		
+		this.checksum = checksum;
+	} 
 	
 	/**
 	 * @return the pMSx003_1
@@ -100,6 +131,7 @@ public class PlantowerData {
 	
 	
 	public void convertAllToLittleEndian(){
+		checksum = PlantowerUtility.convertToLittleEndian(checksum);
 		pMSx003_1 = PlantowerUtility.convertToLittleEndian(pMSx003_1);
 		pMSx003_2 = PlantowerUtility.convertToLittleEndian(pMSx003_2);
 		pMSx003_3 = PlantowerUtility.convertToLittleEndian(pMSx003_3);

@@ -27,7 +27,8 @@ public class PlantowerDataSource implements DataSource {
 	@Override
 	public Map<String, Object> produce() {
 		
-		return Stream.of(dataFetcher.getPMSx0031(), dataFetcher.getPMSx0032(), dataFetcher.getPMSx0033())
+		dataFetcher.produce();
+		return Stream.of(dataFetcher.getChecksum(), dataFetcher.getPMSx0031(), dataFetcher.getPMSx0032(), dataFetcher.getPMSx0033())
 			     	 .collect(Collectors.toMap(v -> v.getKey(), v -> v.getValue()));
 		
 	}
