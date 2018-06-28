@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: GalileoGen2
-Bundle-SymbolicName: de.fzi.bwcps.example.sensor.galileogen2.gen;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: de.fzi.bwcps.example.galileogen2.gen
-Require-Bundle: com.google.gson;bundle-version="2.3.0"
