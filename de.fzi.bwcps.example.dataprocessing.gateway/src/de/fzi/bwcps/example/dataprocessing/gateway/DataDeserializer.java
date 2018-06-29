@@ -11,7 +11,7 @@ import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerUtility;
 public class DataDeserializer extends SingleInputSingleOutputFilter<String, PlantowerData> {
 
 	public DataDeserializer(DataPipe<String> input, DataPipe<PlantowerData> output) {
-		
+
 		super(input, output);
 
 	}
@@ -19,18 +19,17 @@ public class DataDeserializer extends SingleInputSingleOutputFilter<String, Plan
 	@Override
 	public void apply() {
 
-		PlantowerData result = PlantowerUtility.unmarshalJSON(createBufferedReader(), 
-																  			new PlantowerData());		
-		
+		PlantowerData result = PlantowerUtility.unmarshalJSON(createBufferedReader(), new PlantowerData());
+
 		addResultToOutput(result);
-		
+
 	}
 
 	private BufferedReader createBufferedReader() {
 
 		StringReader in = new StringReader(getInputData());
 		return new BufferedReader(in);
-		
+
 	}
 
 }

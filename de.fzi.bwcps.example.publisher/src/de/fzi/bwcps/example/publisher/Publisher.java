@@ -18,6 +18,12 @@ import de.fzi.bwcps.example.com.pubsub.IPublisher;
 
 import org.osgi.service.component.annotations.Component;
 
+/**
+ * Publisher that publishes sensor data to a given topic.
+ * 
+ * @author czogalik
+ *
+ */
 @Component(service = IPublisher.class, property = { "service.pid = de.fzi.bwcps.example.publisher.Publisher" })
 public class Publisher implements IPublisher {
 
@@ -59,11 +65,16 @@ public class Publisher implements IPublisher {
 	public Publisher(ConnectionConfig config) {
 
 		this.config = config;
-		this.client = create();
+		this.client = createMqttClient();
 
 	}
 
-	private MqttClient create() {
+	/**
+	 * Creates a mqtt client and returns it.
+	 * 
+	 * @return a mqtt client
+	 */
+	private MqttClient createMqttClient() {
 
 		try {
 
@@ -118,6 +129,13 @@ public class Publisher implements IPublisher {
 
 	}
 
+	/**
+	 * Converts a string message into a mqtt message.
+	 * 
+	 * @param message
+	 *            to be converted into an mqtt message.
+	 * @return the converted mqtt message.
+	 */
 	private MqttMessage toMqttMessage(String message) {
 
 		byte[] bytes = message.getBytes();

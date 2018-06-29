@@ -12,9 +12,21 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+/**
+ * Manages data sources and produces sensor data.
+ * 
+ * @author scheerer, czogalik
+ *
+ */
 @Component
 public class DataSourceManager {
 
+	/**
+	 * Produces sensor data.
+	 * 
+	 * @author sheerer, czogalik
+	 *
+	 */
 	private class DataProductionJob extends Thread {
 
 		public boolean isAlive = true;
@@ -62,31 +74,25 @@ public class DataSourceManager {
 	private DataProcessor<Map<String, Object>> preproc;
 	private DataSource source;
 
-	//private static final Logger s_logger = LoggerFactory.getLogger(DataSourceManager.class);
-
 	@Reference
 	public synchronized void setDataProcessor(DataProcessor<Map<String, Object>> preproc) {
 		this.preproc = preproc;
-		//s_logger.info("preproc set");
 	}
 
 	public synchronized void unsetDataProcessor(DataProcessor<Map<String, Object>> preproc) {
 		if (this.preproc == preproc) {
 			this.preproc = null;
-			//s_logger.info("preproc unset");
 		}
 	}
 
 	@Reference
 	public synchronized void setDataSource(DataSource source) {
 		this.source = source;
-		//s_logger.info("DataSource set");
 	}
 
 	public synchronized void unsetDataSource(DataSource source) {
 		if (this.source == source) {
 			this.source = null;
-			//s_logger.info("DataSource unset");
 		}
 	}
 

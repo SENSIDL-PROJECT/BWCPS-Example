@@ -9,20 +9,19 @@ import de.fzi.bwcps.example.sensor.plantower.gen.PlantowerUtility;
 public class DataSerializer extends SingleInputSingleOutputFilter<MeasuredData<PlantowerData>, String> {
 
 	public DataSerializer(DataPipe<MeasuredData<PlantowerData>> input, DataPipe<String> output) {
-		
+
 		super(input, output);
-		
+
 	}
 
 	@Override
 	public void apply() {
-		
+
 		PlantowerData measurement = getInputData().getMeasuredData();
 		String result = PlantowerUtility.marshalJSON(measurement);
-		
+
 		addResultToOutput(result);
-		
-		
+
 	}
 
 }

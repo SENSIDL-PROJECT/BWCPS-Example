@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.ComponentContext;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 import de.fzi.bwcps.example.com.pubsub.IPublisher;
 import de.fzi.bwcps.example.dataprocessing.util.DataProcessorManager;
@@ -22,34 +20,31 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+/**
+ * Initializes publisher and publishes incoming sensor data.
+ * 
+ * @author scheerer, czogalik
+ *
+ */
 @Component(service = DataProcessor.class)
 public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 	private IPublisher publisher;
 	private DataProcessorManager<MeasuredData<Object>, String> procManager;
 
-	//private static final Logger s_logger = LoggerFactory.getLogger(SensorPreprocessor.class);
-
-	public SensorPreprocessor() {
-
-	}
-
 	@Reference
 	public synchronized void setPublisher(IPublisher publisher) {
 		this.publisher = initPublisher(publisher);
-		//s_logger.info("publisher set");
 	}
 
 	public synchronized void unsetPublisher(IPublisher publisher) {
 		if (this.publisher == publisher) {
 			this.publisher = null;
-			//s_logger.info("publisher unset");
 		}
 	}
-	
+
 	@Activate
 	protected void activate(ComponentContext componentContext, Map<String, Object> properties) {
-		//s_logger.info("activate preprocessor");
 		this.procManager = initDataProcessorManager();
 
 	}
@@ -85,7 +80,7 @@ public class SensorPreprocessor implements DataProcessor<Map<String, Object>> {
 
 		procManager.resetWithNew(transform(measurements.entrySet().stream()));
 		procManager.applyAllFilter();
-		
+
 		Optional<String> firstResult = procManager.getFirstResult();
 		firstResult.ifPresent(result -> publish(result));
 
