@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: StreamsMetamodel
+Bundle-SymbolicName: de.fzi.bwcps.metamodel.streams.example
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: StreamsMetamodel
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

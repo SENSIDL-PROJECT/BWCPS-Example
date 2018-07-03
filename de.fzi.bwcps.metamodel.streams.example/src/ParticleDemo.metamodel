@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<streams:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:streams="http://www.fzi.de/bwcps/stream/1.0">
+  <streams name="GalileoToNUCStream1">
+    <links xsi:type="streams:AggregatedNodeLink" source="//@nodes.3" sink="//@nodes.0"/>
+  </streams>
+  <streams name="GalileoToNUCStream2">
+    <links xsi:type="streams:AggregatedNodeLink" source="//@nodes.3" sink="//@nodes.1"/>
+  </streams>
+  <streams name="GalileoToNUCStream3">
+    <links xsi:type="streams:AggregatedNodeLink" source="//@nodes.3" sink="//@nodes.2"/>
+  </streams>
+  <streams name="NUCToAzureStream">
+    <links xsi:type="streams:AggregatedNodeLink" source="//@nodes.4" sink="//@nodes.3"/>
+  </streams>
+  <nodes xsi:type="streams:EdgeNode" name="Galileo1" nodeType="//@nodeTypes.4"/>
+  <nodes xsi:type="streams:EdgeNode" name="Galileo2" nodeType="//@nodeTypes.4"/>
+  <nodes xsi:type="streams:EdgeNode" name="Galileo3" nodeType="//@nodeTypes.4"/>
+  <nodes xsi:type="streams:EdgeGateway" name="IntelNUC" nodeType="//@nodeTypes.2"/>
+  <nodes xsi:type="streams:EdgeNode" name="Azure" nodeType="//@nodeTypes.3"/>
+  <nodeTypes xsi:type="streams:SourceNodeType" name="Particle"/>
+  <nodeTypes xsi:type="streams:SourceNodeType" name="Location"/>
+  <nodeTypes xsi:type="streams:SinkSourceNodeType" name="Gateway" refines="//@nodeTypes.1 //@nodeTypes.0"/>
+  <nodeTypes xsi:type="streams:SinkNodeType" name="Cloud" refines="//@nodeTypes.1 //@nodeTypes.0"/>
+  <nodeTypes xsi:type="streams:SourceNodeType" name="ParticleLocationTupel" refines="//@nodeTypes.1 //@nodeTypes.0"/>
+</streams:StreamRepository>
