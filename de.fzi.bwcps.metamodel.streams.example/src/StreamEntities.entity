@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:StreamRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" xmlns:entity="http://www.fzi.de/bwcps/stream/entity/1.0" name="StreamEntityRepo">
+  <streams name="PiZeroToNUC_1" nodelinks="//@nodelinks.0 //@nodelinks.4"/>
+  <streams name="PiZeroToNUC_2" nodelinks="//@nodelinks.0 //@nodelinks.4"/>
+  <streams name="PiZeroToNUC_3" nodelinks="//@nodelinks.0 //@nodelinks.4"/>
+  <streams name="NUCToAzureCloud" nodelinks="//@nodelinks.7"/>
+  <container xsi:type="entity:DataSink" name="AzureCloud" nodes="//@nodes.6"/>
+  <container xsi:type="entity:EdgeDevice" name="PiZero_1" nodes="//@nodes.0 //@nodes.1 //@nodes.2 //@nodes.5 //@nodes.7"/>
+  <container xsi:type="entity:EdgeDevice" name="PiZero_2" nodes="//@nodes.0 //@nodes.2 //@nodes.1 //@nodes.5 //@nodes.7"/>
+  <container xsi:type="entity:EdgeDevice" name="PiZero_3" nodes="//@nodes.0 //@nodes.1 //@nodes.2 //@nodes.5 //@nodes.7"/>
+  <container xsi:type="entity:EdgeGateway" name="NUC" nodes="//@nodes.4 //@nodes.3 //@nodes.8"/>
+  <nodeTypes xsi:type="entity:SourceNodeType" name="LocationMeasurements">
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jLEaEeiyZM2SmlApHg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jbEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SourceNodeType" name="ParticleMeasurements">
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1h7EaEeiyZM2SmlApHg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1iLEaEeiyZM2SmlApHg"/>
+    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1ibEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="CloudForwarding" refines="//@nodeTypes.4 //@nodeTypes.5"/>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="Processing" refines="//@nodeTypes.1">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1h7EaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1iLEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1ibEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="ParticleForwarding" refines="//@nodeTypes.1">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1h7EaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1iLEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1ibEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="LocationForwarding" refines="//@nodeTypes.0">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jLEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jbEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodeTypes xsi:type="entity:SourceNodeType" name="Persisting">
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1h7EaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1iLEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1ibEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jLEaEeiyZM2SmlApHg"/>
+    <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="../../de.fzi.bwcps.metamodel.streams.example.sensidl/src/ParticleLocationDataDecription.sidl#_VMI1jbEaEeiyZM2SmlApHg"/>
+  </nodeTypes>
+  <nodes name="Preprocessing" nodetype="//@nodeTypes.3"/>
+  <nodes name="ParticleMeasurement" nodetype="//@nodeTypes.1"/>
+  <nodes name="LocationMeasurement" nodetype="//@nodeTypes.0"/>
+  <nodes name="SendToCloud" nodetype="//@nodeTypes.2"/>
+  <nodes name="AggregateMeasurements" nodetype="//@nodeTypes.2"/>
+  <nodes name="SendLocationMeasurements" nodetype="//@nodeTypes.5"/>
+  <nodes name="PersistEdgeData" nodetype="//@nodeTypes.6"/>
+  <nodes name="SendParticleMeasurements" nodetype="//@nodeTypes.4"/>
+  <nodes name="HandleIncomingMeasurement" nodetype="//@nodeTypes.2"/>
+  <nodelinks xsi:type="entity:AggregatedNodeLink" name="ParticleDataProcessingAndForwarding" source="//@nodes.1" target="//@nodes.8" aggregatedLinks="//@nodelinks.1 //@nodelinks.2"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="ParticleDataGenerationToPreprocessing" source="//@nodes.1" target="//@nodes.0"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="PreprocessingToParticleForwarding" source="//@nodes.0" target="//@nodes.7"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitParticleDataToGateway" source="//@nodes.7" target="//@nodes.8"/>
+  <nodelinks xsi:type="entity:AggregatedNodeLink" name="LocationDataForwarding" source="//@nodes.2" target="//@nodes.8" aggregatedLinks="//@nodelinks.6 //@nodelinks.5"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitLocationDataToSensor" source="//@nodes.5" target="//@nodes.8"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="LocationDataGenerationToForwarding" source="//@nodes.2" target="//@nodes.5"/>
+  <nodelinks xsi:type="entity:AggregatedNodeLink" name="DataHandlingAndForwarding" source="//@nodes.8" target="//@nodes.6" aggregatedLinks="//@nodelinks.8 //@nodelinks.9 //@nodelinks.10"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataHandlingAndAggregation" source="//@nodes.8" target="//@nodes.4"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataAggregationAndForwarding" source="//@nodes.4" target="//@nodes.3"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitToCloud" source="//@nodes.3" target="//@nodes.6"/>
+</entity:StreamRepository>
