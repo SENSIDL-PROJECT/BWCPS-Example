@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.fzi.sensidl.design:SensorInterface xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.fzi.sensidl.design="http://fzi.de/sensidl/design/1.0" xmlns:de.fzi.sensidl.design.sensidl="http://fzi.de/sensidl/design/representation/1.0" ID="_MHaQgIbpEeqlIaSUhvgaug">
+  <encodingSettings ID="_MlsH8IbpEeqlIaSUhvgaug"/>
+  <dataDescription ID="_NGtKUYbpEeqlIaSUhvgaug">
+    <dataSets ID="_PbP_0IbpEeqlIaSUhvgaug" name="AirMeasurementData">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_XEC9MIbpEeqlIaSUhvgaug" name="Count" dataType="INT16"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_oiJy0IbpEeqlIaSUhvgaug" name="Density" dataType="FLOAT"/>
+    </dataSets>
+    <dataSets ID="_Rn3oYIbpEeqlIaSUhvgaug" name="LocationData">
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_lnbuIIbpEeqlIaSUhvgaug" name="Location" dataType="STRING"/>
+      <data xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" ID="_sOceYIbpEeqlIaSUhvgaug" name="LocalTime" dataType="STRING"/>
+    </dataSets>
+  </dataDescription>
+</de.fzi.sensidl.design:SensorInterface>
