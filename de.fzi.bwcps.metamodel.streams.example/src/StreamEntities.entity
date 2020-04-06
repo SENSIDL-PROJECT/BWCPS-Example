@@ -13,24 +13,20 @@
     <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
     <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_oiJy0IbpEeqlIaSUhvgaug"/>
   </nodeTypes>
-  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="CloudForwarding" refines="//@nodeTypes.4 //@nodeTypes.5"/>
-  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="Processing" refines="//@nodeTypes.1">
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="CloudForwarding" refines="//@nodeTypes.4 //@nodeTypes.5" frequency="5"/>
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="Processing" refines="//@nodeTypes.1" frequency="10">
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_oiJy0IbpEeqlIaSUhvgaug"/>
-    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
-    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_oiJy0IbpEeqlIaSUhvgaug"/>
   </nodeTypes>
-  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="ParticleForwarding">
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="ParticleForwarding" frequency="10">
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_oiJy0IbpEeqlIaSUhvgaug"/>
     <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_oiJy0IbpEeqlIaSUhvgaug"/>
     <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
   </nodeTypes>
-  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="LocationForwarding">
+  <nodeTypes xsi:type="entity:SinkSourceNodeType" name="LocationForwarding" refines="//@nodeTypes.0" frequency="200">
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_sOceYIbpEeqlIaSUhvgaug"/>
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_lnbuIIbpEeqlIaSUhvgaug"/>
-    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_sOceYIbpEeqlIaSUhvgaug"/>
-    <output xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_lnbuIIbpEeqlIaSUhvgaug"/>
   </nodeTypes>
   <nodeTypes xsi:type="entity:SinkNodeType" name="Persisting">
     <input xsi:type="de.fzi.sensidl.design.sensidl:MeasurementData" href="AirParticleDataDescription.sensidl#_XEC9MIbpEeqlIaSUhvgaug"/>
@@ -48,14 +44,14 @@
   <nodes name="SendParticleMeasurements" nodetype="//@nodeTypes.4"/>
   <nodes name="HandleIncomingMeasurement" nodetype="//@nodeTypes.2"/>
   <nodelinks xsi:type="entity:AggregatedNodeLink" name="ParticleDataProcessingAndForwarding" source="//@nodes.1" target="//@nodes.8" aggregatedLinks="//@nodelinks.1 //@nodelinks.2 //@nodelinks.3"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="ParticleDataGenerationToPreprocessing" source="//@nodes.1" target="//@nodes.0"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="PreprocessingToParticleForwarding" source="//@nodes.0" target="//@nodes.7"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitParticleDataToGateway" source="//@nodes.7" target="//@nodes.8"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="ParticleDataGenerationToPreprocessing" source="//@nodes.1" target="//@nodes.0" bandwith="2000"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="PreprocessingToParticleForwarding" source="//@nodes.0" target="//@nodes.7" bandwith="1000"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitParticleDataToGateway" source="//@nodes.7" target="//@nodes.8" bandwith="1000"/>
   <nodelinks xsi:type="entity:AggregatedNodeLink" name="LocationDataForwarding" source="//@nodes.2" target="//@nodes.8" aggregatedLinks="//@nodelinks.6 //@nodelinks.5"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitLocationDataToSensor" source="//@nodes.5" target="//@nodes.8"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="LocationDataGenerationToForwarding" source="//@nodes.2" target="//@nodes.5"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitLocationDataToSensor" source="//@nodes.5" target="//@nodes.8" bandwith="40000"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="LocationDataGenerationToForwarding" source="//@nodes.2" target="//@nodes.5" bandwith="40000"/>
   <nodelinks xsi:type="entity:AggregatedNodeLink" name="DataHandlingAndForwarding" source="//@nodes.8" target="//@nodes.6" aggregatedLinks="//@nodelinks.8 //@nodelinks.9 //@nodelinks.10"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataHandlingAndAggregation" source="//@nodes.8" target="//@nodes.4"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataAggregationAndForwarding" source="//@nodes.4" target="//@nodes.3"/>
-  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitToCloud" source="//@nodes.3" target="//@nodes.6"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataHandlingAndAggregation" source="//@nodes.8" target="//@nodes.4" bandwith="1500"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="DataAggregationAndForwarding" source="//@nodes.4" target="//@nodes.3" bandwith="1500"/>
+  <nodelinks xsi:type="entity:PrimitiveNodeLink" name="EmitToCloud" source="//@nodes.3" target="//@nodes.6" bandwith="1220"/>
 </entity:StreamRepository>
